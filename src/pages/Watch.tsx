@@ -97,9 +97,8 @@ export default function Watch() {
   const canPrevEp = episode > 1;
 
   const goToEpisode = (s: number, e: number) => {
-    setSearchParams({ season: String(s), episode: String(e) });
-    setIframeLoaded(false);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Force a hard page reload to clear vidsrc's iframe cache and actually switch episodes
+    window.location.href = `${window.location.pathname}?season=${s}&episode=${e}`;
   };
 
   const availableSeasons = media?.seasons?.filter((s: any) => s.season_number > 0) ?? [];
