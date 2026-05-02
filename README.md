@@ -1,79 +1,87 @@
-# 🍿 CinePulse
+# 🍿 CinePulse: The Future of Cinematic Discovery
 
-**CinePulse** is a premium, high-performance streaming discovery platform designed for an immersive cinematic experience. Built with a sleek, dark-mode glassmorphic aesthetic, it offers seamless exploration and viewing of movies and TV shows across all devices.
+[![React](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.0-38B2AC?logo=tailwind-css)](https://tailwindcss.com)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## 📸 Preview
+**CinePulse** isn't just another movie tracker—it's a premium, high-performance streaming discovery engine. Designed with a sleek, dark-mode glassmorphic aesthetic, it brings a cinematic experience directly to your browser.
 
-| Home Dashboard | Movie Discovery |
+---
+
+## 📽️ Visual Tour
+
+| **Home Dashboard** | **Deep Discovery** |
 | :---: | :---: |
 | ![Home](./public/screenshots/home.png) | ![Detail](./public/screenshots/detail.png) |
+| *Immersive horizontal scrolling and dynamic hero sections.* | *Comprehensive metadata and cast details.* |
 
-| Cinematic Player | Personal Analytics |
+| **Cinematic Player** | **Viewer Analytics** |
 | :---: | :---: |
 | ![Player](./public/screenshots/player.png) | ![Stats](./public/screenshots/stats.png) |
+| *Seamless streaming with integrated controls.* | *Data-driven insights into your viewing habits.* |
 
-## ✨ Key Features
+---
 
-- **Premium UI/UX**: Stunning dark mode design with fluid micro-animations powered by `motion/react`.
-- **Intelligent Discovery**: Mood-based "Decision Mode" and "Quick Pick" to eliminate decision fatigue.
-- **Unified Watchlist**: Synchronized tracking for movies and TV shows with progress persistence.
-- **Deep Analytics**: Visualize your viewing habits, favorite genres, and total watch time on a dedicated dashboard.
-- **Native Player**: Integrated streaming experience with episode selection and high-quality playback.
-- **Fully Responsive**: Optimized for mobile, tablet, and desktop with a native-app feel.
+## ✨ Why CinePulse?
 
-## 🚀 Tech Stack
+- **💎 Premium Design**: A state-of-the-art UI utilizing glassmorphism, fluid micro-animations, and a curated dark-mode palette.
+- **🧠 Intelligent Pickers**: Can't decide? Use **Decision Mode** (mood-based) or **Quick Pick** to find your next favorite movie in seconds.
+- **📊 Personal Insights**: A dedicated stats dashboard tracks your total watch time, favorite genres, and viewing frequency.
+- **📱 Mobile-First Native Feel**: Experience smooth, 60fps transitions and gesture-friendly navigation on any device.
+- **🔍 Global Search**: Lightning-fast search functionality powered by the TMDB ecosystem.
 
-- **Frontend**: React 19 (Vite), Tailwind CSS 4
-- **State/Auth**: Context API, Firebase (Optional)
-- **Animations**: motion/react (Framer Motion)
+---
+
+## 🛠️ Built With
+
+<p align="left">
+  <img src="https://skillicons.dev/icons?i=react,tailwind,vite,express,firebase,ts" />
+</p>
+
+- **Frontend**: React 19, Vite, Tailwind CSS 4.0
+- **Animations**: `motion/react` (Framer Motion)
 - **Icons**: Lucide React
 - **API**: TMDB (The Movie Database)
-- **Backend**: Express (Vite Middleware Proxy)
+- **Backend**: Express (Vite Proxy Middleware)
 
-## 🛠️ Getting Started
+---
 
-### Prerequisites
-- Node.js (v18 or higher)
-- A TMDB API Key
+## 🚀 Get Started in 60 Seconds
 
-### Installation
+### 1. Clone & Install
+```bash
+git clone https://github.com/madireis/cinepulse.git
+cd cinepulse
+npm install
+```
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/cinepulse.git
-   cd cinepulse
-   ```
+### 2. Configure API
+Create a `.env` file and add your TMDB API Key:
+```env
+TMDB_API_KEY=your_api_key_here
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+### 3. Launch
+```bash
+npm run dev
+```
+Navigate to `http://localhost:3000` and start your journey.
 
-3. **Environment Setup**
-   Create a `.env` file in the root directory:
-   ```env
-   TMDB_API_KEY=your_tmdb_api_key_here
-   ```
-
-4. **Start the Development Server**
-   ```bash
-   npm run dev
-   ```
-   The application will start on `http://localhost:3000`. You can also access it on your local network to test on mobile devices.
-
-## 📱 Mobile Preview
-CinePulse is built with a mobile-first mindset. The sidebar transitions into a bottom-drawer or hamburger menu on smaller screens, ensuring a consistent premium experience.
+---
 
 ## ⚠️ Disclaimer
 
-This project is for **educational purposes only**. CinePulse is a frontend application designed to demonstrate modern web development patterns, UI/UX design, and API integration. 
+This project is for **educational purposes only**. CinePulse is a frontend demonstration of modern web engineering.
 
-- **No Content Hosting**: CinePulse does not host, store, or distribute any video files or copyrighted material. 
-- **Metadata**: All movie and TV show metadata, including posters and backdrops, are provided by [The Movie Database (TMDB)](https://www.themoviedb.org/).
-- **Legal Compliance**: Users are responsible for ensuring their use of any third-party streaming sources complies with local laws and regulations.
-
-## 📝 License
-This project is licensed under the MIT License.
+- **No Content Hosting**: This application does not host or distribute copyrighted material.
+- **Metadata**: All content info is provided via the [TMDB API](https://www.themoviedb.org/).
+- **Legal Compliance**: Users are responsible for ensuring their usage aligns with local streaming laws.
 
 ---
-*Built with ❤️ for movie lovers everywhere.*
+
+## 📝 License
+Licensed under the [MIT License](LICENSE).
+
+<p align="center">
+  <i>Built with ❤️ for the cinematic community.</i>
+</p>
