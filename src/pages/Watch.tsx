@@ -247,6 +247,7 @@ export default function Watch() {
           <div className="flex-1 w-full relative">
             <iframe
               ref={iframeRef}
+              key={embedUrl}
               src={embedUrl}
               title={`Watch ${title}`}
               className="w-full h-full border-none absolute inset-0"
