@@ -116,6 +116,13 @@ export const tmdbService = {
     return data;
   },
 
+  getPersonDetails: async (personId: number) => {
+    const { data } = await api.get(`/person/${personId}`, {
+      params: { append_to_response: 'combined_credits,images' },
+    });
+    return data;
+  },
+
   getGenres: async () => {
     const { data } = await api.get('/genre/movie/list');
     return data.genres;

@@ -15,6 +15,7 @@ import Search from './pages/Search';
 import Watchlist from './pages/Watchlist';
 import History from './pages/History';
 import Stats from './pages/Stats';
+import Person from './pages/Person';
 import { AuthProvider } from './context/AuthContext';
 import { WatchlistProvider } from './context/WatchlistContext';
 
@@ -43,6 +44,7 @@ function AppRoutes() {
         <Route path="/stats" element={<Stats />} />
         <Route path="/movie/:id" element={<MovieDetail />} />
         <Route path="/tv/:id" element={<TvDetail />} />
+        <Route path="/person/:id" element={<Person />} />
       </Routes>
     </Layout>
   );

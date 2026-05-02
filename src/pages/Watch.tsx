@@ -461,19 +461,19 @@ export default function Watch() {
           {media?.credits?.cast?.length > 0 && (
             <section className="space-y-4">
               <h3 className="text-lg font-display font-bold text-white">Cast</h3>
-              <div className="flex gap-4 overflow-x-auto no-scrollbar pb-2">
-                {media.credits.cast.slice(0, 8).map((person: any) => (
-                  <div key={person.id} className="shrink-0 text-center w-20">
-                    <div className="w-20 h-20 rounded-full overflow-hidden bg-white/5 mb-2 border-2 border-white/5">
+              <div className="flex gap-5 overflow-x-auto no-scrollbar pb-2">
+                {media.credits.cast.slice(0, 12).map((person: any) => (
+                  <Link key={person.id} to={`/person/${person.id}`} className="shrink-0 text-center group w-24">
+                    <div className="w-20 h-20 rounded-full overflow-hidden bg-white/5 mb-2 border-2 border-white/5 group-hover:border-brand-primary transition-colors mx-auto">
                       <img
                         src={tmdbService.getImageUrl(person.profile_path, 'w500')}
                         alt={person.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="text-xs font-medium text-white line-clamp-1">{person.name}</p>
-                    <p className="text-xs text-gray-600 line-clamp-1 italic">{person.character}</p>
-                  </div>
+                    <p className="text-xs font-medium text-white group-hover:text-brand-primary transition-colors leading-tight">{person.name}</p>
+                    <p className="text-xs text-gray-600 line-clamp-1 italic mt-0.5">{person.character}</p>
+                  </Link>
                 ))}
               </div>
             </section>

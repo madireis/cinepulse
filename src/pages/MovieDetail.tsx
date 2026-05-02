@@ -142,19 +142,19 @@ export default function MovieDetail() {
 
             <section>
               <h2 className="text-3xl font-display font-bold mb-6 tracking-tight">Top Cast</h2>
-              <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-6">
-                {movie.credits?.cast?.slice(0, 6).map((person: any) => (
-                  <div key={person.id} className="text-center group">
-                    <div className="aspect-square rounded-full overflow-hidden mb-3 border-2 border-white/5 group-hover:border-brand-primary transition-colors">
+              <div className="flex flex-wrap gap-5">
+                {movie.credits?.cast?.slice(0, 12).map((person: any) => (
+                  <Link key={person.id} to={`/person/${person.id}`} className="text-center group w-28">
+                    <div className="w-28 h-28 rounded-full overflow-hidden mb-3 border-2 border-white/5 group-hover:border-brand-primary transition-colors mx-auto">
                       <img
                         src={tmdbService.getImageUrl(person.profile_path, 'w500')}
                         alt={person.name}
                         className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                       />
                     </div>
-                    <p className="font-semibold text-sm line-clamp-1">{person.name}</p>
-                    <p className="text-xs text-gray-500 line-clamp-1 italic">{person.character}</p>
-                  </div>
+                    <p className="font-semibold text-sm group-hover:text-brand-primary transition-colors leading-tight">{person.name}</p>
+                    <p className="text-xs text-gray-500 line-clamp-1 italic mt-0.5">{person.character}</p>
+                  </Link>
                 ))}
               </div>
             </section>
