@@ -104,6 +104,27 @@ export default function Watch() {
 
   const availableSeasons = media?.seasons?.filter((s: any) => s.season_number > 0) ?? [];
 
+  const currentEpisodeData = seasonData?.episodes?.find((ep: any) => ep.episode_number === episode);
+  const episodeName = currentEpisodeData?.name;
+
+  useEffect(() => {
+    if (media) {
+      let docTitle = media.title || media.name || 'Watch';
+      if (type === 'tv') {
+        docTitle = `${docTitle} - S${season}E${episode}${episodeName ? ` - ${episodeName}` : ''}`;
+      }
+      document.title = `${docTitle} | CinePulse`;
+    }
+  }, [media, type, season, episode, episodeName]);
+
+  // Fallback for iframe loading just in case onLoad doesn't fire reliably due to cross-origin redirects
+  useEffect(() => {
+    if (!iframeLoaded && embedUrl) {
+      const timer = setTimeout(() => setIframeLoaded(true), 4000);
+      return () => clearTimeout(timer);
+    }
+  }, [iframeLoaded, embedUrl]);
+
   // ─── Native fullscreen helper ─────────────────────────────────────────────
   const toggleFullscreen = () => {
     const el = playerContainerRef.current;
@@ -155,9 +176,11 @@ export default function Watch() {
         </button>
 
         <div className="flex-1 px-6 min-w-0">
-          <h1 className="text-white font-display font-bold text-lg truncate">{title}</h1>
+          <h1 className="text-white font-display font-bold text-lg truncate">
+            {title} {type === 'tv' && episodeName ? <span className="text-gray-400 font-medium"> - {episodeName}</span> : ''}
+          </h1>
           {type === 'tv' && (
-            <p className="text-gray-500 text-xs">Season {season} · Episode {episode}</p>
+            <p className="text-brand-primary text-xs font-medium">Season {season} · Episode {episode}</p>
           )}
         </div>
 
@@ -382,7 +405,14 @@ export default function Watch() {
                 />
               )}
               <div className="flex-1 min-w-0">
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight">{title}</h2>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-white leading-tight">
+                  {title}
+                  {type === 'tv' && episodeName && (
+                    <span className="block text-xl md:text-2xl text-gray-400 font-normal mt-1">
+                      {episodeName} <span className="text-brand-primary text-lg font-medium">(S{season} E{episode})</span>
+                    </span>
+                  )}
+                </h2>
                 <div className="flex flex-wrap items-center gap-4 mt-3 text-sm text-gray-400">
                   {media?.vote_average > 0 && (
                     <span className="flex items-center gap-1 text-yellow-400">
