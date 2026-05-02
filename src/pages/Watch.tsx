@@ -1,13 +1,14 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useSearchParams, Link, useNavigate } from 'react-router-dom';
 import { tmdbService } from '../services/tmdb';
 import {
   ArrowLeft, Star, Clock, Calendar, Play, Heart, CheckCircle2,
-  Tv, ChevronDown, ChevronUp, SkipForward, SkipBack, Maximize2, Minimize2, List
+  Tv, ChevronDown, ChevronUp, SkipForward, SkipBack, Maximize2, Minimize2, List, Radio
 } from 'lucide-react';
 import { cn, formatRuntime } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { useWatchlist } from '../context/WatchlistContext';
+import { STREAM_PROVIDERS, getStoredProviderId, setStoredProviderId } from '../lib/providers';
 
 export default function Watch() {
   const { type, id } = useParams<{ type: string; id: string }>();
@@ -26,6 +27,8 @@ export default function Watch() {
   const playerContainerRef = useRef<HTMLDivElement>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [showInPlayerEpisodes, setShowInPlayerEpisodes] = useState(false);
+  const [providerId, setProviderId] = useState<string>(getStoredProviderId());
+  const [showProviderMenu, setShowProviderMenu] = useState(false);
 
   const { toggleWatchlist, isInWatchlist, updateProgress, addToHistory } = useWatchlist();
 
@@ -71,25 +74,28 @@ export default function Watch() {
   }, [id, type, season, media]);
 
   // ─── Build embed URL ──────────────────────────────────────────────────────
-  const getEmbedUrl = () => {
-    const base = 'https://vidsrc-embed.ru/embed';
-    const imdbId = media?.imdb_id || media?.external_ids?.imdb_id;
-    const tmdbId = media?.id;
-
-    if (type === 'movie') {
-      if (imdbId) return `${base}/movie?imdb=${imdbId}&autoplay=1`;
-      return `${base}/movie?tmdb=${tmdbId}&autoplay=1`;
-    }
-    if (type === 'tv') {
-      if (imdbId) return `${base}/tv?imdb=${imdbId}&season=${season}&episode=${episode}&autoplay=1&autonext=1`;
-      return `${base}/tv?tmdb=${tmdbId}&season=${season}&episode=${episode}&autoplay=1&autonext=1`;
-    }
-    return null;
-  };
+  const getEmbedUrl = useCallback(() => {
+    if (!media) return null;
+    const provider = STREAM_PROVIDERS.find(p => p.id === providerId) ?? STREAM_PROVIDERS[0];
+    return provider.getUrl({
+      type: type as 'movie' | 'tv',
+      tmdbId: media.id,
+      imdbId: media.imdb_id || media.external_ids?.imdb_id,
+      season: type === 'tv' ? season : undefined,
+      episode: type === 'tv' ? episode : undefined,
+    });
+  }, [media, providerId, type, season, episode]);
 
   const embedUrl = getEmbedUrl();
   const title = media?.title || media?.name || '';
   const inWatchlist = media ? isInWatchlist(media.id) : false;
+
+  const switchProvider = (id: string) => {
+    setStoredProviderId(id);
+    setProviderId(id);
+    setShowProviderMenu(false);
+    setIframeLoaded(false);
+  };
 
   // ─── Episode navigation helpers ───────────────────────────────────────────
   const totalEpisodes = seasonData?.episodes?.length ?? 0;
@@ -97,7 +103,6 @@ export default function Watch() {
   const canPrevEp = episode > 1;
 
   const goToEpisode = (s: number, e: number) => {
-    // Force a hard page reload to clear vidsrc's iframe cache and actually switch episodes
     window.location.href = `${window.location.pathname}?season=${s}&episode=${e}`;
   };
 
@@ -116,13 +121,26 @@ export default function Watch() {
     }
   }, [media, type, season, episode, episodeName]);
 
-  // Fallback for iframe loading just in case onLoad doesn't fire reliably due to cross-origin redirects
+  // Fallback timer so loading screen never gets stuck
   useEffect(() => {
     if (!iframeLoaded && embedUrl) {
       const timer = setTimeout(() => setIframeLoaded(true), 4000);
       return () => clearTimeout(timer);
     }
   }, [iframeLoaded, embedUrl]);
+
+  // ─── Keyboard shortcuts ───────────────────────────────────────────────────
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      // Don't fire inside inputs/selects
+      if (['INPUT','SELECT','TEXTAREA'].includes((e.target as HTMLElement).tagName)) return;
+      if (e.key === 'ArrowRight' && canNextEp) goToEpisode(season, episode + 1);
+      if (e.key === 'ArrowLeft'  && canPrevEp) goToEpisode(season, episode - 1);
+      if (e.key === 'f' || e.key === 'F') toggleFullscreen();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [canNextEp, canPrevEp, season, episode]);
 
   // ─── Native fullscreen helper ─────────────────────────────────────────────
   const toggleFullscreen = () => {
@@ -184,6 +202,47 @@ export default function Watch() {
         </div>
 
         <div className="flex items-center gap-2">
+          {/* Provider selector */}
+          <div className="relative">
+            <button
+              onClick={() => setShowProviderMenu(v => !v)}
+              className="flex items-center gap-2 text-xs text-gray-400 hover:text-white bg-white/5 hover:bg-white/10 px-3 py-2 rounded-lg transition-all border border-white/5"
+              title="Switch Stream Provider"
+            >
+              <Radio className="w-4 h-4 text-brand-primary" />
+              <span className="hidden sm:block">{STREAM_PROVIDERS.find(p => p.id === providerId)?.name ?? 'Provider'}</span>
+            </button>
+            <AnimatePresence>
+              {showProviderMenu && (
+                <motion.div
+                  initial={{ opacity: 0, y: 6, scale: 0.96 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 6, scale: 0.96 }}
+                  className="absolute right-0 top-full mt-2 w-48 bg-nav-bg border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50"
+                >
+                  <div className="p-2 border-b border-white/5">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-500 px-2">Stream Source</p>
+                  </div>
+                  {STREAM_PROVIDERS.map(p => (
+                    <button
+                      key={p.id}
+                      onClick={() => switchProvider(p.id)}
+                      className={cn(
+                        'w-full flex items-center gap-3 px-4 py-2.5 text-sm transition-colors text-left',
+                        p.id === providerId
+                          ? 'bg-brand-primary/15 text-brand-primary font-semibold'
+                          : 'text-gray-400 hover:text-white hover:bg-white/5'
+                      )}
+                    >
+                      <span className={cn('w-1.5 h-1.5 rounded-full shrink-0', p.id === providerId ? 'bg-brand-primary' : 'bg-gray-600')} />
+                      {p.name}
+                    </button>
+                  ))}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {/* Fullscreen shortcut */}
           <button
             onClick={toggleFullscreen}
