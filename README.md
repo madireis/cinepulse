@@ -6,11 +6,11 @@
 
 | Home Dashboard | Movie Discovery |
 | :---: | :---: |
-| ![Home](file:///C:/Users/champ/.gemini/antigravity/brain/ae631f71-f1b5-456a-a9b7-09e7807b95a8/cinepulse_home_launch_1777747180451.png) | ![Detail](file:///C:/Users/champ/.gemini/antigravity/brain/ae631f71-f1b5-456a-a9b7-09e7807b95a8/cinepulse_movie_detail_1777747194201.png) |
+| ![Home](./public/screenshots/home.png) | ![Detail](./public/screenshots/detail.png) |
 
 | Cinematic Player | Personal Analytics |
 | :---: | :---: |
-| ![Player](file:///C:/Users/champ/.gemini/antigravity/brain/ae631f71-f1b5-456a-a9b7-09e7807b95a8/cinepulse_player_retry_1777747259786.png) | ![Stats](file:///C:/Users/champ/.gemini/antigravity/brain/ae631f71-f1b5-456a-a9b7-09e7807b95a8/cinepulse_stats_1777747280620.png) |
+| ![Player](./public/screenshots/player.png) | ![Stats](./public/screenshots/stats.png) |
 
 ## ✨ Key Features
 
