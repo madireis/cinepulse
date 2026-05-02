@@ -64,6 +64,14 @@
 ## 📱 Mobile Preview
 CinePulse is built with a mobile-first mindset. The sidebar transitions into a bottom-drawer or hamburger menu on smaller screens, ensuring a consistent premium experience.
 
+## ⚠️ Disclaimer
+
+This project is for **educational purposes only**. CinePulse is a frontend application designed to demonstrate modern web development patterns, UI/UX design, and API integration. 
+
+- **No Content Hosting**: CinePulse does not host, store, or distribute any video files or copyrighted material. 
+- **Metadata**: All movie and TV show metadata, including posters and backdrops, are provided by [The Movie Database (TMDB)](https://www.themoviedb.org/).
+- **Legal Compliance**: Users are responsible for ensuring their use of any third-party streaming sources complies with local laws and regulations.
+
 ## 📝 License
 This project is licensed under the MIT License.
 
