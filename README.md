@@ -77,6 +77,54 @@ This project is for **educational purposes only**. CinePulse is a frontend demon
 - **Metadata**: All content info is provided via the [TMDB API](https://www.themoviedb.org/).
 - **Legal Compliance**: Users are responsible for ensuring their usage aligns with local streaming laws.
 
+
+---
+
+## 🗺️ Roadmap
+
+> CinePulse is actively evolving. Here's what's shipped and what's coming next.
+
+### ✅ Shipped
+
+| | Feature |
+|---|---|
+| ✅ | Premium dark-mode UI with glassmorphism & micro-animations |
+| ✅ | TMDB integration — trending, popular, top-rated, upcoming |
+| ✅ | Full Movie & TV Show detail pages with trailers |
+| ✅ | **Streaming player** via embedded backend provider |
+| ✅ | TV episode picker — season/episode navigation |
+| ✅ | **Decision Mode** — mood-based movie picker |
+| ✅ | **Quick Pick** — instant random suggestion |
+| ✅ | Watchlist — save movies & shows locally |
+| ✅ | Watch history tracking |
+| ✅ | **Personal Analytics** dashboard — genre heatmap, watch time, streaks |
+| ✅ | Global search — movies, TV shows, and **actors** |
+| ✅ | **Actor pages** — full filmography with movie/TV filter |
+| ✅ | Cast cards linked to actor profiles across all pages |
+| ✅ | Dynamic episode headers — title & doc tab update on episode change |
+| ✅ | Hard-reload episode switching to bypass provider cache |
+| ✅ | SEO meta tags, keywords, and dynamic document titles |
+| ✅ | Mobile-first responsive layout with slide-out nav |
+| ✅ | Removed auth/sign-in — fully open, no account needed |
+
+---
+
+### 🔜 Coming Soon
+
+| | Feature | Priority |
+|---|---|---|
+| 🔲 | **Multi-provider support** — fallback between VidSrc, VidSrc2, SuperEmbed, 2Embed | 🔥 High |
+| 🔲 | Provider selector UI — let user pick their preferred source | 🔥 High |
+| 🔲 | **Continue Watching** row on home dashboard | 🔥 High |
+| 🔲 | Trailer auto-play in hero section on hover | ⚡ Medium |
+| 🔲 | Advanced filters — runtime, year range, quality, language | ⚡ Medium |
+| 🔲 | **Collections & franchises** — view full MCU, Star Wars etc. | ⚡ Medium |
+| 🔲 | Keyboard shortcuts — space to pause, arrow keys for episodes | ⚡ Medium |
+| 🔲 | Director & crew pages (similar to actor pages) | ⚡ Medium |
+| 🔲 | Progressive Web App (PWA) — install on mobile | 🧊 Low |
+| 🔲 | Dark/light theme toggle | 🧊 Low |
+| 🔲 | Export watch history as CSV | 🧊 Low |
+
 ---
 
 ## 📝 License

@@ -7,10 +7,10 @@
 
   --color-brand-primary: #E50914;
   --color-brand-primary-hover: #C0070F;
-  --color-brand-bg: #0A0B0F;
-  --color-card-bg: #141519;
-  --color-nav-bg: #0D0E12;
-  --color-surface: #1A1C22;
+  --color-brand-bg: #080A0F;
+  --color-card-bg: #12141A;
+  --color-nav-bg: #0C0D13;
+  --color-surface: #1A1C24;
 }
 
 @layer base {
@@ -18,62 +18,122 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-brand-bg text-gray-100 font-sans antialiased;
     background-image:
-      radial-gradient(ellipse 80% 40% at 50% -10%, rgba(229, 9, 20, 0.06), transparent),
-      radial-gradient(ellipse 60% 30% at 80% 120%, rgba(229, 9, 20, 0.04), transparent);
+      radial-gradient(ellipse 100% 50% at 50% -20%, rgba(229, 9, 20, 0.07), transparent),
+      radial-gradient(ellipse 50% 40% at 100% 80%, rgba(229, 9, 20, 0.04), transparent),
+      radial-gradient(ellipse 40% 60% at 0% 60%, rgba(229, 9, 20, 0.025), transparent);
   }
 
-  ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+  /* Focus rings */
+  :focus-visible {
+    outline: 2px solid rgba(229, 9, 20, 0.6);
+    outline-offset: 2px;
+    border-radius: 6px;
   }
-  ::-webkit-scrollbar-track {
-    background: transparent;
-  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 5px; height: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
   ::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.07);
     border-radius: 99px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: rgba(229, 9, 20, 0.4);
+    background: rgba(229, 9, 20, 0.45);
+  }
+
+  /* Selection highlight */
+  ::selection {
+    background: rgba(229, 9, 20, 0.35);
+    color: #fff;
   }
 }
 
 @layer utilities {
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar { display: none; }
+  .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
+  /* Glow effects */
   .glow-red {
-    box-shadow: 0 0 30px rgba(229, 9, 20, 0.25), 0 0 60px rgba(229, 9, 20, 0.1);
+    box-shadow: 0 0 24px rgba(229, 9, 20, 0.3), 0 0 60px rgba(229, 9, 20, 0.1);
+  }
+  .glow-red-sm {
+    box-shadow: 0 0 12px rgba(229, 9, 20, 0.25);
   }
 
+  /* Glassmorphism */
   .glass {
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(255, 255, 255, 0.035);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .glass-dark {
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
+  /* Gradient text */
   .text-gradient {
-    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+    background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.65) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
+  .text-gradient-red {
+    background: linear-gradient(135deg, #E50914 0%, #ff6b6b 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(229, 9, 20, 0.15);
+  }
+
+  /* Shimmer skeleton */
+  .shimmer {
+    background: linear-gradient(90deg,
+      rgba(255,255,255,0.04) 0%,
+      rgba(255,255,255,0.08) 50%,
+      rgba(255,255,255,0.04) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s ease infinite;
+  }
 }
 
-/* Smooth page transitions */
+/* Animations */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(8px); }
+  from { opacity: 0; transform: translateY(10px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-6px); }
+}
+
+/* Page entry animation */
 main > * {
-  animation: fadeIn 0.35s ease both;
+  animation: fadeIn 0.3s ease both;
 }

@@ -16,7 +16,6 @@ import Watchlist from './pages/Watchlist';
 import History from './pages/History';
 import Stats from './pages/Stats';
 import Person from './pages/Person';
-import { AuthProvider } from './context/AuthContext';
 import { WatchlistProvider } from './context/WatchlistContext';
 
 // Wrapper that conditionally renders sidebar layout
@@ -52,12 +51,10 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <WatchlistProvider>
-        <BrowserRouter>
-          <AppRoutes />
-        </BrowserRouter>
-      </WatchlistProvider>
-    </AuthProvider>
+    <WatchlistProvider>
+      <BrowserRouter>
+        <AppRoutes />
+      </BrowserRouter>
+    </WatchlistProvider>
   );
 }
